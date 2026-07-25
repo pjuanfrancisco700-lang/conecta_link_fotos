@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+  >
+  <meta name="theme-color" content="#f6f2ec">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Comparte las fotografías de un evento de forma sencilla y segura.">
+  <meta name="format-detection" content="telephone=no">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Fotos">
+
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./assets/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./assets/icon-192.png">
+  <link rel="preload" as="image" href="./assets/portada-evento.jpg">
+  <link rel="stylesheet" href="./styles.css">
+
+  <title>ConectaLink Fotos</title>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-message">
+      Esta aplicación necesita JavaScript para seleccionar y compartir fotografías.
+    </div>
+  </noscript>
+
+  <div id="appShell" class="app-shell" aria-busy="true">
+    <div id="offlineBanner" class="connection-banner" role="status" hidden>
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M2.8 6.2 4.2 4.8l15 15-1.4 1.4-3.1-3.1A6.8 6.8 0 0 1 12 18.7c-1.8 0-3.5-.7-4.8-2l-2 2-1.4-1.4 2-2A9.6 9.6 0 0 1 2 12c0-1.7.4-3.2 1.2-4.6L2.8 6.2Zm4.1 4.1A4.7 4.7 0 0 0 7.2 14L12 9.2l-1.5-1.5a6.7 6.7 0 0 0-3.6 2.6Zm10.2 3.4c.6-.5 1-1.1 1.3-1.7A7.2 7.2 0 0 0 15 8.6l-1.5 1.5 3.6 3.6ZM12 3.3c4.8 0 8.7 3.9 8.7 8.7 0 1.2-.2 2.3-.7 3.4l-1.6-1.6c.2-.6.3-1.2.3-1.8A6.7 6.7 0 0 0 12 5.3c-.6 0-1.2.1-1.8.3L8.6 4c1.1-.5 2.2-.7 3.4-.7Z"/>
+      </svg>
+      <span>Sin conexión. Puedes preparar las fotos y subirlas cuando vuelva internet.</span>
+    </div>
+
+    <header class="topbar" aria-label="Encabezado de la aplicación">
+      <a class="brand" href="./" aria-label="ConectaLink Fotos, inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M8.2 7.3a4.7 4.7 0 0 1 6.7 0l1.8 1.8-1.5 1.5-1.8-1.8a2.6 2.6 0 0 0-3.7 0L7.8 10.7a2.6 2.6 0 0 0 0 3.7 2.6 2.6 0 0 0 3.7 0l.9-.9 1.5 1.5-.9.9a4.7 4.7 0 0 1-6.7-6.7l1.9-1.9Zm2.9 1.7.9-.9a4.7 4.7 0 1 1 6.7 6.7l-1.9 1.9a4.7 4.7 0 0 1-6.7 0l-1.8-1.8 1.5-1.5 1.8 1.8a2.6 2.6 0 0 0 3.7 0l1.9-1.9a2.6 2.6 0 1 0-3.7-3.7l-.9.9L11.1 9Z"/>
+          </svg>
+        </span>
+        <span>ConectaLink <strong>Fotos</strong></span>
+      </a>
+      <div id="authBadge" class="auth-badge" role="status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="authBadgeText">Preparando</span>
+      </div>
+    </header>
+
+    <main id="appMain" class="app-main">
+      <section id="welcomeScreen" class="screen is-active" aria-labelledby="eventTitle">
+        <article class="hero-card">
+          <div id="coverSkeleton" class="cover-skeleton" aria-hidden="true"></div>
+          <img
+            id="eventCover"
+            class="event-cover"
+            src="./assets/portada-evento.jpg"
+            alt="Portada del evento"
+            draggable="false"
+          >
+          <div class="cover-overlay" aria-hidden="true"></div>
+
+          <div class="hero-content">
+            <p class="eyebrow">Álbum compartido</p>
+            <h1 id="eventTitle">Evento</h1>
+            <p id="eventSubtitle" class="hero-subtitle">Comparte tus mejores momentos</p>
+            <div class="event-date-row">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M7 2h2v2h6V2h2v2h1a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h1V2Zm11 8H6v9a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-9ZM7 6a1 1 0 0 0-1 1v1h13V7a1 1 0 0 0-1-1H7Z"/>
+              </svg>
+              <span id="eventDate">Fecha del evento</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="welcome-card surface-card">
+          <div class="welcome-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M8.5 4.5 10 2h4l1.5 2.5H19a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3h3.5ZM12 8a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm6.5-3.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/>
+            </svg>
+          </div>
+          <div>
+            <h2>Guarda este día con nosotros</h2>
+            <p id="eventMessage">Ayúdanos a guardar cada recuerdo de este día tan especial.</p>
+          </div>
+          <button id="startButton" class="button button-primary button-large" type="button" disabled>
+            <span>Compartir mis fotos</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="m13.4 5.4 5.2 5.2a2 2 0 0 1 0 2.8l-5.2 5.2-1.4-1.4 4.2-4.2H5v-2h11.2L12 6.8l1.4-1.4Z"/>
+            </svg>
+          </button>
+          <p id="welcomeStatus" class="microcopy" role="status">Preparando tu espacio…</p>
+        </article>
+      </section>
+
+      <section id="uploadScreen" class="screen" aria-labelledby="uploadHeading" hidden>
+        <div class="section-heading">
+          <button id="backButton" class="icon-button" type="button" aria-label="Volver a la portada">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="m10.6 5.4-5.2 5.2a2 2 0 0 0 0 2.8l5.2 5.2 1.4-1.4L7.8 13H19v-2H7.8L12 6.8l-1.4-1.4Z"/>
+            </svg>
+          </button>
+          <div>
+            <p class="eyebrow">Tu selección</p>
+            <h1 id="uploadHeading">Comparte tus fotografías</h1>
+          </div>
+        </div>
+
+        <form id="uploadForm" novalidate>
+          <article class="surface-card form-card">
+            <label class="field-label" for="guestName">Tu nombre</label>
+            <div id="nameField" class="text-field">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm0 10c5.5 0 9 2.8 9 6v2H3v-2c0-3.2 3.5-6 9-6Zm0 2c-4.5 0-7 2.1-7 4h14c0-1.9-2.5-4-7-4Z"/>
+              </svg>
+              <input
+                id="guestName"
+                name="guestName"
+                type="text"
+                inputmode="text"
+                autocomplete="name"
+                autocapitalize="words"
+                enterkeyhint="done"
+                minlength="2"
+                maxlength="80"
+                placeholder="Escribe tu nombre"
+                aria-describedby="nameHelp nameError"
+                required
+              >
+              <span id="nameValidIcon" class="field-valid-icon" aria-hidden="true" hidden>
+                <svg viewBox="0 0 24 24"><path d="m9.2 16.6-4.3-4.3 1.4-1.4 2.9 2.9 8.5-8.5 1.4 1.4-9.9 9.9Z"/></svg>
+              </span>
+            </div>
+            <p id="nameHelp" class="field-help">Así sabremos quién compartió estos recuerdos.</p>
+            <p id="nameError" class="field-error" role="alert" hidden></p>
+          </article>
+
+          <article class="surface-card picker-card">
+            <div class="card-heading-row">
+              <div>
+                <p class="eyebrow">Fotografías</p>
+                <h2>Elige desde tu teléfono</h2>
+              </div>
+              <span id="selectionLimitBadge" class="count-badge">0 / 20</span>
+            </div>
+
+            <div class="picker-actions">
+              <button id="galleryButton" class="picker-button" type="button">
+                <span class="picker-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M5 3h14a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Zm0 2a1 1 0 0 0-1 1v8.6l3.8-3.8a2 2 0 0 1 2.8 0l2.2 2.2 1.2-1.2a2 2 0 0 1 2.8 0l3.2 3.2V6a1 1 0 0 0-1-1H5Zm14 14a1 1 0 0 0 1-1v-.2l-4.6-4.6-4 4-2.2-2.2L5.2 19H19ZM8 7a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"/>
+                  </svg>
+                </span>
+                <span>
+                  <strong>Galería</strong>
+                  <small>Selecciona varias</small>
+                </span>
+              </button>
+
+              <button id="cameraButton" class="picker-button" type="button">
+                <span class="picker-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="m8.5 4 1.3-2h4.4l1.3 2H19a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h3.5ZM12 8a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z"/>
+                  </svg>
+                </span>
+                <span>
+                  <strong>Cámara</strong>
+                  <small>Toma una foto</small>
+                </span>
+              </button>
+            </div>
+
+            <input id="galleryInput" class="visually-hidden" type="file" accept="image/*" multiple>
+            <input id="cameraInput" class="visually-hidden" type="file" accept="image/*" capture="environment">
+
+            <p id="pickerHint" class="picker-hint">Puedes seleccionar hasta 20 fotografías de 10 MB cada una.</p>
+          </article>
+
+          <article id="previewSection" class="surface-card preview-card" hidden>
+            <div class="card-heading-row preview-heading">
+              <div>
+                <p class="eyebrow">Vista previa</p>
+                <h2 id="selectionSummary">0 fotografías</h2>
+                <p id="selectionWeight" class="field-help">0 MB aproximadamente</p>
+              </div>
+              <button id="addMoreButton" class="button button-secondary button-compact" type="button">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5Z"/></svg>
+                <span>Agregar</span>
+              </button>
+            </div>
+            <div id="previewGrid" class="preview-grid" aria-live="polite"></div>
+          </article>
+
+          <article id="progressSection" class="surface-card progress-card" hidden aria-labelledby="progressHeading">
+            <div class="progress-header">
+              <div>
+                <p class="eyebrow">Progreso del envío</p>
+                <h2 id="progressHeading">Preparando fotografías</h2>
+              </div>
+              <strong id="progressPercentage">0%</strong>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="progressHeading">
+              <span id="progressBar"></span>
+            </div>
+            <p id="progressText" class="progress-text" role="status">Todo listo para comenzar.</p>
+            <ul id="fileProgressList" class="file-progress-list" aria-label="Estado de cada fotografía"></ul>
+          </article>
+
+          <div id="uploadActionSpacer" class="action-spacer"></div>
+          <div id="bottomActionBar" class="bottom-action-bar">
+            <div class="bottom-action-inner">
+              <div class="bottom-summary">
+                <strong id="bottomCount">0 fotos</strong>
+                <span id="bottomState">Agrega tus recuerdos</span>
+              </div>
+              <button id="uploadButton" class="button button-primary bottom-upload-button" type="submit" disabled>
+                <span id="uploadButtonLabel">Compartir fotografías</span>
+                <span id="uploadButtonSpinner" class="button-spinner" aria-hidden="true" hidden></span>
+                <svg id="uploadButtonIcon" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M11 16h2V8.8l2.6 2.6 1.4-1.4-5-5-5 5 1.4 1.4L11 8.8V16Zm-6 3h14v-5h2v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5h2v5Z"/>
+                </svg>
+              </button>
+              <button id="retryButton" class="button button-warning bottom-upload-button" type="button" hidden>
+                <span id="retryButtonLabel">Reintentar fallidas</span>
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 1-7.4 5H2l3.5-3.5L9 9H6.7A6 6 0 1 0 12 6V4Z"/></svg>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section id="successScreen" class="screen success-screen" aria-labelledby="successHeading" hidden>
+        <article class="success-card surface-card">
+          <div class="success-orbit" aria-hidden="true">
+            <span class="success-ring"></span>
+            <span class="success-icon">
+              <svg viewBox="0 0 24 24"><path d="m9.2 16.6-4.3-4.3 1.4-1.4 2.9 2.9 8.5-8.5 1.4 1.4-9.9 9.9Z"/></svg>
+            </span>
+          </div>
+          <p class="eyebrow">Envío completado</p>
+          <h1 id="successHeading">¡Gracias por compartir estos momentos!</h1>
+          <p id="successMessage">Tus fotografías quedaron guardadas correctamente.</p>
+
+          <div class="success-summary">
+            <div>
+              <span>Invitado</span>
+              <strong id="successGuestName">—</strong>
+            </div>
+            <div>
+              <span>Fotografías</span>
+              <strong id="successPhotoCount">0</strong>
+            </div>
+          </div>
+
+          <button id="shareMoreButton" class="button button-primary button-large" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5Z"/></svg>
+            <span>Compartir más fotografías</span>
+          </button>
+          <button id="returnHomeButton" class="button button-ghost" type="button">Volver a la portada</button>
+        </article>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>Creado con cariño para este evento</span>
+      <span aria-hidden="true">·</span>
+      <strong>ConectaLink</strong>
+    </footer>
+  </div>
+
+  <div id="initialLoader" class="initial-loader" role="status" aria-live="polite">
+    <div class="loader-brand" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path d="M8.2 7.3a4.7 4.7 0 0 1 6.7 0l1.8 1.8-1.5 1.5-1.8-1.8a2.6 2.6 0 0 0-3.7 0L7.8 10.7a2.6 2.6 0 0 0 0 3.7 2.6 2.6 0 0 0 3.7 0l.9-.9 1.5 1.5-.9.9a4.7 4.7 0 0 1-6.7-6.7l1.9-1.9Zm2.9 1.7.9-.9a4.7 4.7 0 1 1 6.7 6.7l-1.9 1.9a4.7 4.7 0 0 1-6.7 0l-1.8-1.8 1.5-1.5 1.8 1.8a2.6 2.6 0 0 0 3.7 0l1.9-1.9a2.6 2.6 0 1 0-3.7-3.7l-.9.9L11.1 9Z"/>
+      </svg>
+    </div>
+    <div class="loader-copy">
+      <strong>ConectaLink Fotos</strong>
+      <span id="loaderText">Preparando tu espacio…</span>
+    </div>
+    <span class="loader-spinner" aria-hidden="true"></span>
+  </div>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <div id="errorDialog" class="dialog-backdrop" hidden>
+    <section class="dialog-card" role="alertdialog" aria-modal="true" aria-labelledby="errorDialogTitle" aria-describedby="errorDialogMessage">
+      <div class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2Zm0 4 7.5 13h-15L12 6Zm-1 4v5h2v-5h-2Zm0 7v2h2v-2h-2Z"/></svg>
+      </div>
+      <h2 id="errorDialogTitle">No pudimos continuar</h2>
+      <p id="errorDialogMessage">Revisa la configuración e inténtalo nuevamente.</p>
+      <button id="errorDialogButton" class="button button-primary" type="button">Entendido</button>
+    </section>
+  </div>
+
+  <template id="photoCardTemplate">
+    <article class="photo-card">
+      <div class="photo-thumb-wrap">
+        <img class="photo-thumb" alt="" draggable="false">
+        <div class="photo-fallback" hidden>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 3h14a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Zm0 2a1 1 0 0 0-1 1v8.6l3.8-3.8a2 2 0 0 1 2.8 0l2.2 2.2 1.2-1.2a2 2 0 0 1 2.8 0l3.2 3.2V6a1 1 0 0 0-1-1H5Z"/></svg>
+          <span>Vista no disponible</span>
+        </div>
+        <button class="photo-remove" type="button" aria-label="Eliminar fotografía">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7.4 6 4.6 4.6L16.6 6 18 7.4 13.4 12l4.6 4.6-1.4 1.4-4.6-4.6L7.4 18 6 16.6l4.6-4.6L6 7.4 7.4 6Z"/></svg>
+        </button>
+        <div class="photo-status-badge" hidden></div>
+      </div>
+      <div class="photo-meta">
+        <strong class="photo-name"></strong>
+        <span class="photo-size"></span>
+      </div>
+    </article>
+  </template>
+
+  <template id="fileProgressTemplate">
+    <li class="file-progress-item">
+      <span class="file-state-icon" aria-hidden="true">
+        <svg class="file-state-pending" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-1 3h2v5.6l3.2 1.8-1 1.8-4.2-2.4V7Z"/></svg>
+      </span>
+      <span class="file-progress-copy">
+        <strong class="file-progress-name"></strong>
+        <span class="file-progress-status">Pendiente</span>
+      </span>
+      <span class="file-progress-percent">0%</span>
+    </li>
+  </template>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
