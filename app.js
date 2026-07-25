@@ -854,7 +854,8 @@ async function processAndUploadPhoto(photo, guestName) {
       }
     };
 
-    const path = `eventos/${state.eventId}/${state.user.uid}/${uniqueFileName}`;
+    const guestFolder = createGuestFolderName(guestName, state.user.uid);
+    const path = `eventos/${state.eventId}/${guestFolder}/${uniqueFileName}`;
     const targetRef = storageRef(state.firebaseServices.storage, path);
 
     photo.status = "uploading";
@@ -1519,6 +1520,26 @@ function sanitizeEventId(value) {
   }
 
   return sanitized;
+}
+
+function createGuestFolderName(guestName, userId) {
+  const safeName = sanitizeGuestName(guestName)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/-{2,}/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40) || "Invitado";
+
+  const uidSuffix = String(userId ?? "")
+    .replace(/[^a-zA-Z0-9]/g, "")
+    .slice(0, 8);
+
+  if (!uidSuffix) {
+    throw createAppError("auth/invalid-user", "No se pudo identificar la sesión del invitado.");
+  }
+
+  return `${safeName}-${uidSuffix}`;
 }
 
 function createDuplicateKey(file) {
