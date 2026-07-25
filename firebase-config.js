@@ -1,23 +1,39 @@
-import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
+import {
+  initializeApp,
+  getApp,
+  getApps
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import {
+  getAuth
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+import {
+  getFirestore
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+import {
+  getStorage
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
 
 /**
- * CONFIGURACIÓN DE FIREBASE
- * Reemplaza únicamente los valores PEGAR_... con los datos reales de tu app web
- * en Firebase Console > Configuración del proyecto > Tus apps > SDK setup.
+ * CONFIGURACIÓN REAL DE FIREBASE
+ * Proyecto: ConectaLink Fotos
  */
 export const firebaseConfig = {
-  apiKey: "PEGAR_API_KEY",
+  apiKey: "AIzaSyBaxesEf3zPkk8ZknQHzAOnsZcrdQdLBKA",
   authDomain: "conectalink-fotos.firebaseapp.com",
   projectId: "conectalink-fotos",
   storageBucket: "conectalink-fotos.firebasestorage.app",
-  messagingSenderId: "PEGAR_MESSAGING_SENDER_ID",
-  appId: "PEGAR_APP_ID",
-  measurementId: "PEGAR_MEASUREMENT_ID"
+  messagingSenderId: "894298787599",
+  appId: "1:894298787599:web:16c65606f26e0f661d387a",
+  measurementId: "G-KLXLKXJ6MZ"
 };
 
+/**
+ * Campos necesarios para que la aplicación pueda conectarse.
+ * measurementId es opcional.
+ */
 const REQUIRED_FIELDS = [
   "apiKey",
   "authDomain",
@@ -28,12 +44,12 @@ const REQUIRED_FIELDS = [
 ];
 
 /**
- * Comprueba que los datos esenciales existan y que no conserven marcadores.
- * measurementId es opcional y no impide iniciar la aplicación.
+ * Comprueba que la configuración de Firebase esté completa.
  */
 export function validateFirebaseConfig(config = firebaseConfig) {
   const missingFields = REQUIRED_FIELDS.filter((field) => {
     const value = config[field];
+
     return (
       typeof value !== "string" ||
       value.trim() === "" ||
@@ -48,7 +64,8 @@ export function validateFirebaseConfig(config = firebaseConfig) {
 }
 
 /**
- * Inicializa Firebase una sola vez y devuelve los servicios utilizados.
+ * Inicializa Firebase una sola vez.
+ * Devuelve Authentication, Storage y Firestore.
  */
 export function initializeFirebaseServices() {
   const validation = validateFirebaseConfig(firebaseConfig);
@@ -60,12 +77,18 @@ export function initializeFirebaseServices() {
     throw error;
   }
 
-  const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+  const app = getApps().length > 0
+    ? getApp()
+    : initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+  const storage = getStorage(app);
+  const db = getFirestore(app);
 
   return {
     app,
-    auth: getAuth(app),
-    storage: getStorage(app),
-    db: getFirestore(app)
+    auth,
+    storage,
+    db
   };
 }
