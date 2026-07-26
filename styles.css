@@ -2242,4 +2242,165 @@ textarea::selection {
     padding-left: 13px;
     font-size: 13px;
   }
+}/* ================================================================
+   VISTA PREVIA DE FOTOGRAFÍAS · ESTILO CONECTALINK
+   ================================================================ */
+
+.preview-card {
+  padding: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.98);
+  border-radius: 28px;
+  box-shadow:
+    0 18px 42px rgba(52, 57, 66, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+/* Encabezado */
+
+.preview-heading {
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.preview-heading .eyebrow {
+  margin-bottom: 7px;
+  color: #7c3aed;
+}
+
+.preview-heading h2 {
+  color: #171b22;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.preview-heading .field-help {
+  margin-top: 5px;
+  color: #85818b;
+  font-size: 12px;
+}
+
+/* Botón Agregar */
+
+.preview-heading .button-secondary {
+  min-height: 46px;
+  padding: 10px 15px;
+  color: #7139ef;
+  background: linear-gradient(
+    135deg,
+    rgba(124, 58, 237, 0.12),
+    rgba(168, 85, 247, 0.08)
+  );
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+.preview-heading .button-secondary svg {
+  width: 18px;
+  height: 18px;
+}
+
+.preview-heading .button-secondary:active {
+  background: rgba(124, 58, 237, 0.16);
+}
+
+/* Cuadrícula */
+
+.preview-grid {
+  gap: 12px;
+}
+
+/* Miniaturas */
+
+.photo-thumb-wrap {
+  overflow: hidden;
+  background: #f1edf7;
+  border: 1px solid rgba(124, 58, 237, 0.08);
+  border-radius: 18px;
+  box-shadow:
+    0 8px 20px rgba(52, 57, 66, 0.08),
+    inset 0 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Botón para eliminar */
+
+.photo-remove {
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  color: #ffffff;
+  background: rgba(30, 27, 36, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 7px 18px rgba(20, 18, 24, 0.18);
+}
+
+/* Estado y porcentaje sobre cada foto */
+
+.photo-status-badge {
+  right: 8px;
+  bottom: 8px;
+  left: 8px;
+  min-height: 28px;
+  padding: 6px 8px;
+  color: #ffffff;
+  font-size: 10px;
+  background: linear-gradient(
+    135deg,
+    rgba(88, 42, 194, 0.9),
+    rgba(139, 70, 245, 0.9)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 6px 16px rgba(65, 31, 143, 0.22);
+}
+
+.photo-status-badge.is-completed {
+  background: rgba(47, 122, 88, 0.9);
+}
+
+.photo-status-badge.is-error {
+  background: rgba(182, 69, 69, 0.92);
+}
+
+/* Nombre y peso */
+
+.photo-meta {
+  padding: 9px 3px 0;
+}
+
+.photo-meta strong {
+  color: #45414b;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.photo-meta span {
+  margin-top: 3px;
+  color: #918c97;
+  font-size: 9px;
+}
+
+/* Ajustes para iPhone */
+
+@media (max-width: 430px) {
+  .preview-card {
+    padding: 22px 20px;
+  }
+
+  .preview-heading h2 {
+    font-size: 22px;
+  }
+
+  .preview-grid {
+    gap: 11px;
+  }
+
+  .preview-heading .button-secondary {
+    padding-right: 13px;
+    padding-left: 13px;
+    font-size: 12px;
+  }
 }
