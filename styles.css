@@ -309,7 +309,9 @@ textarea::selection {
 
 .hero-card {
   position: relative;
-  min-height: clamp(380px, 59vh, 540px);
+  width: 100%;
+  height: clamp(270px, 68vw, 420px);
+  min-height: 0;
   overflow: hidden;
   isolation: isolate;
   border: 1px solid rgba(255, 255, 255, 0.85);
@@ -1429,9 +1431,9 @@ textarea::selection {
   }
 
   .hero-card {
-    min-height: 530px;
-  }
-
+  height: 420px;
+  min-height: 0;
+}
   .hero-content {
     padding: 46px 40px 38px;
   }
