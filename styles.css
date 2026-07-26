@@ -228,23 +228,25 @@ textarea::selection {
 
 .brand-mark {
   display: grid;
+  flex: 0 0 auto;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  color: var(--accent-dark);
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 13px;
-  box-shadow: var(--shadow-xs);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(80, 67, 52, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(53, 42, 31, 0.1);
 }
 
-.brand-mark svg {
-  width: 21px;
-  height: 21px;
+.brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
 }
-
 .auth-badge {
   display: inline-flex;
   align-items: center;
