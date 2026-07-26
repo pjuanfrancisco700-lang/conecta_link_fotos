@@ -28,7 +28,7 @@ const EVENT_CONFIG = {
   subtitulo: "Comparte tus mejores momentos",
   mensaje: "Ayúdanos a guardar cada recuerdo de este día tan especial.",
   fecha: "1 de agosto de 2026",
-  imagenPortada: "./assets/portada-evento.jpg",
+  imagenPortada: "./assets/portada-evento.jpg?v=2",
   maxFotosPorEnvio: 20,
   maxPesoPorFotoMB: 10
 };
