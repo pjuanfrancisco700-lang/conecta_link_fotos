@@ -27,7 +27,7 @@ const EVENT_CONFIG = {
   titulo: "Darwin & Dilma",
   subtitulo: "Comparte tus mejores momentos",
   mensaje: "Ayúdanos a guardar cada recuerdo de este día tan especial.",
-  fecha: "15 de agosto de 2026",
+  fecha: "1 de agosto de 2026",
   imagenPortada: "./assets/portada-evento.jpg",
   maxFotosPorEnvio: 20,
   maxPesoPorFotoMB: 10
