@@ -102,18 +102,53 @@
       </section>
 
       <section id="uploadScreen" class="screen" aria-labelledby="uploadHeading" hidden>
-        <div class="section-heading">
-          <button id="backButton" class="icon-button" type="button" aria-label="Volver a la portada">
-            <svg aria-hidden="true" viewBox="0 0 24 24">
-              <path d="m10.6 5.4-5.2 5.2a2 2 0 0 0 0 2.8l5.2 5.2 1.4-1.4L7.8 13H19v-2H7.8L12 6.8l-1.4-1.4Z"/>
-            </svg>
-          </button>
-          <div>
-            <p class="eyebrow">Tu selección</p>
-            <h1 id="uploadHeading">Comparte tus fotografías</h1>
-          </div>
-        </div>
+        <div class="upload-intro">
 
+  <div class="section-heading upload-heading-row">
+    <button
+      id="backButton"
+      class="icon-button"
+      type="button"
+      aria-label="Volver a la portada"
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="m10.6 5.4-5.2 5.2a2 2 0 0 0 0 2.8l5.2 5.2 1.4-1.4L7.8 13H19v-2H7.8L12 6.8l-1.4-1.4Z"/>
+      </svg>
+    </button>
+
+    <div class="upload-heading-copy">
+      <h1 id="uploadHeading">Comparte tus recuerdos</h1>
+
+      <p class="upload-subtitle">
+        Añade tu nombre y las fotografías que tomaste durante el evento.
+      </p>
+    </div>
+  </div>
+
+  <div class="upload-steps" aria-label="Proceso para compartir fotografías">
+
+    <div class="upload-step is-active">
+      <span class="step-number">1</span>
+      <span class="step-label">Identificación</span>
+    </div>
+
+    <div class="step-line" aria-hidden="true"></div>
+
+    <div class="upload-step">
+      <span class="step-number">2</span>
+      <span class="step-label">Fotografías</span>
+    </div>
+
+    <div class="step-line" aria-hidden="true"></div>
+
+    <div class="upload-step">
+      <span class="step-number">3</span>
+      <span class="step-label">Envío</span>
+    </div>
+
+  </div>
+
+</div>
         <form id="uploadForm" novalidate>
           <article class="surface-card form-card">
             <label class="field-label" for="guestName">Tu nombre</label>
