@@ -1282,9 +1282,10 @@ textarea::selection {
   box-shadow: 0 22px 48px rgba(73, 57, 43, 0.22), inset 0 1px rgba(255, 255, 255, 0.18);
 }
 
-.loader-brand svg {
-  width: 39px;
-  height: 39px;
+.loader-brand img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
 }
 
 .loader-copy {
