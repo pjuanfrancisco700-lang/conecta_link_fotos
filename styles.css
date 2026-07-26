@@ -1908,4 +1908,12 @@ textarea::selection {
   .identity-heading h2 {
     font-size: 18px;
   }
+}/* Quitar espacio dejado por el indicador de pasos */
+
+.upload-intro {
+  margin-bottom: 8px;
+}
+
+.upload-heading-row {
+  padding-bottom: 18px;
 }
