@@ -3,7 +3,7 @@
  * Cambia APP_VERSION cuando publiques una actualización importante.
  * Solo almacena archivos estáticos de la aplicación; no intercepta Firebase.
  */
-const APP_VERSION = "conectalink-fotos-v1.1.6";
+const APP_VERSION = "conectalink-fotos-v1.1.7";
 const CACHE_NAME = `${APP_VERSION}-static`;
 const BASE_URL = new URL("./", self.location.href);
 
