@@ -341,19 +341,19 @@ textarea::selection {
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  min-height: 46px;
-  padding: 10px 17px;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 14px;
   color: #69636f;
-  font-size: 13px;
-  font-weight: 750;
-  letter-spacing: -0.015em;
+  font-size: 12px;
+  font-weight: 740;
+  letter-spacing: -0.012em;
   white-space: nowrap;
   background: rgba(255, 255, 255, 0.84);
   border: 1px solid rgba(255, 255, 255, 0.97);
   border-radius: 999px;
   box-shadow:
-    0 12px 30px rgba(52, 37, 74, 0.085),
+    0 10px 24px rgba(52, 37, 74, 0.075),
     inset 0 1px rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
@@ -371,8 +371,8 @@ textarea::selection {
   position: relative;
   display: block;
   flex: 0 0 auto;
-  width: 23px;
-  height: 25px;
+  width: 19px;
+  height: 21px;
   background: #a39ca8;
   border-radius: 0;
   box-shadow: none;
@@ -395,10 +395,10 @@ textarea::selection {
 
 .status-dot::after {
   position: absolute;
-  top: 7px;
-  left: 7px;
-  width: 8px;
-  height: 4px;
+  top: 6px;
+  left: 6px;
+  width: 6px;
+  height: 3px;
   content: "";
   border-right: 2px solid #ffffff;
   border-bottom: 2px solid #ffffff;
@@ -1959,10 +1959,10 @@ textarea::selection {
   }
 
   .auth-badge {
-    min-height: 46px;
-    padding-right: 17px;
-    padding-left: 17px;
-    font-size: 14px;
+    min-height: 44px;
+    padding-right: 16px;
+    padding-left: 16px;
+    font-size: 13px;
   }
 
   .app-main {
@@ -2019,23 +2019,23 @@ textarea::selection {
   }
 
   .auth-badge {
-    max-width: 138px;
-    min-height: 40px;
-    gap: 7px;
-    padding: 8px 12px;
-    font-size: 11px;
+    max-width: 132px;
+    min-height: 36px;
+    gap: 6px;
+    padding: 7px 10px;
+    font-size: 10.5px;
   }
 
   .status-dot {
-    width: 20px;
-    height: 22px;
+    width: 17px;
+    height: 19px;
   }
 
   .status-dot::after {
-    top: 6px;
-    left: 6px;
-    width: 7px;
-    height: 4px;
+    top: 5px;
+    left: 5px;
+    width: 6px;
+    height: 3px;
   }
 
   #authBadgeText {
@@ -2216,7 +2216,7 @@ textarea::selection {
   }
 
   .auth-badge {
-    max-width: 112px;
+    max-width: 118px;
   }
 
   .app-main {
