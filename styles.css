@@ -467,29 +467,29 @@ textarea::selection {
 .cover-overlay {
   z-index: 2;
   background:
-    linear-gradient(
-      180deg,
-      rgba(25, 16, 12, 0.04) 4%,
-      rgba(25, 16, 12, 0.08) 30%,
-      rgba(21, 13, 11, 0.76) 100%
+    radial-gradient(
+      circle at 50% 54%,
+      rgba(8, 12, 20, 0.08) 0%,
+      rgba(8, 12, 20, 0.22) 48%,
+      rgba(8, 12, 20, 0.34) 100%
     ),
     linear-gradient(
-      90deg,
-      rgba(50, 30, 20, 0.1),
-      transparent 62%
+      180deg,
+      rgba(13, 19, 29, 0.04) 0%,
+      rgba(10, 15, 24, 0.2) 42%,
+      rgba(7, 9, 15, 0.78) 100%
     );
 }
 
 .hero-content {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 28px 20px 22px;
+  justify-content: center;
+  padding: 30px 20px;
   color: var(--text-on-dark);
   text-align: center;
 }
@@ -506,10 +506,12 @@ textarea::selection {
 
 .hero-content .eyebrow {
   width: 100%;
-  margin-bottom: 10px;
-  color: #a780ff;
-  font-size: 11px;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
+  margin-bottom: 11px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 10px;
+  font-weight: 780;
+  letter-spacing: 0.18em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
 }
 
 .hero-content h1,
@@ -534,38 +536,39 @@ textarea::selection {
 .hero-subtitle {
   width: 100%;
   max-width: 520px;
-  margin: 13px auto 18px;
+  margin: 12px auto 16px;
   color: rgba(255, 255, 255, 0.9);
   font-size: clamp(14px, 3.8vw, 17px);
   letter-spacing: -0.02em;
   text-align: center;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.26);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
 }
 
 .event-date-row {
   display: inline-flex;
   align-items: center;
   align-self: center;
-  gap: 10px;
-  min-height: 42px;
-  padding: 9px 15px;
-  color: #3d3750;
-  font-size: 14px;
-  font-weight: 720;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.64);
+  gap: 8px;
+  min-height: 36px;
+  padding: 7px 13px;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 12.5px;
+  font-weight: 660;
+  letter-spacing: -0.01em;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 999px;
   box-shadow:
-    0 10px 28px rgba(14, 8, 20, 0.14),
-    inset 0 1px rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
+    0 8px 22px rgba(4, 7, 12, 0.16),
+    inset 0 1px rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
 }
 
 .event-date-row svg {
-  width: 19px;
-  height: 19px;
-  color: var(--accent);
+  width: 16px;
+  height: 16px;
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .welcome-card {
@@ -1925,7 +1928,7 @@ textarea::selection {
   }
 
   .hero-content {
-    padding: 38px 36px 30px;
+    padding: 38px 36px;
   }
 
   .welcome-card,
@@ -1987,12 +1990,12 @@ textarea::selection {
   }
 
   .hero-content {
-    padding: 25px 17px 21px;
+    padding: 24px 17px;
   }
 
   .hero-content .eyebrow {
     margin-bottom: 9px;
-    font-size: 10px;
+    font-size: 9px;
   }
 
   .hero-content h1 {
@@ -2006,9 +2009,9 @@ textarea::selection {
   }
 
   .event-date-row {
-    min-height: 40px;
-    padding: 8px 14px;
-    font-size: 12px;
+    min-height: 34px;
+    padding: 6px 12px;
+    font-size: 11.5px;
   }
 
   .welcome-card {
@@ -2177,9 +2180,9 @@ textarea::selection {
   }
 
   .event-date-row {
-    padding-right: 13px;
-    padding-left: 13px;
-    font-size: 12px;
+    padding-right: 11px;
+    padding-left: 11px;
+    font-size: 11px;
   }
 
   .welcome-card {
