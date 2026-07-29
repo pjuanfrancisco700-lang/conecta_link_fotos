@@ -68,6 +68,7 @@ const dom = {
   nameField: document.querySelector("#nameField"),
   nameError: document.querySelector("#nameError"),
   nameValidIcon: document.querySelector("#nameValidIcon"),
+  photoPickerCard: document.querySelector(".photo-picker-card"),
 
   galleryButton: document.querySelector("#galleryButton"),
   cameraButton: document.querySelector("#cameraButton"),
@@ -191,6 +192,7 @@ function bindEvents() {
   dom.cameraInput.addEventListener("change", handleFileInputChange);
 
   dom.guestName.addEventListener("input", handleNameInput);
+  dom.guestName.addEventListener("keydown", handleNameKeyboardAction);
   dom.guestName.addEventListener("blur", () => {
     const cleaned = sanitizeGuestName(dom.guestName.value);
     dom.guestName.value = cleaned;
@@ -363,9 +365,64 @@ function handleShareMore() {
   }, 220);
 }
 
+function scrollToWorkflowSection(element, delay = 180) {
+  if (!element) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    if (
+      element.hidden ||
+      state.activeScreen !== "upload" ||
+      !document.documentElement.contains(element)
+    ) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      const shellRect = dom.appShell.getBoundingClientRect();
+      const elementRect = element.getBoundingClientRect();
+      const targetTop = Math.max(
+        0,
+        dom.appShell.scrollTop + elementRect.top - shellRect.top - 12
+      );
+
+      dom.appShell.scrollTo({
+        top: targetTop,
+        behavior: prefersReducedMotion() ? "auto" : "smooth"
+      });
+    });
+  }, delay);
+}
+
 /* ================================================================
    NOMBRE DEL INVITADO
    ================================================================ */
+
+function handleNameKeyboardAction(event) {
+  if (event.key !== "Enter") {
+    return;
+  }
+
+  event.preventDefault();
+
+  if (state.isUploading || hasUnregisteredCompletedPhotos()) {
+    return;
+  }
+
+  const validation = validateAndRenderName(true);
+
+  if (!validation.isValid) {
+    return;
+  }
+
+  dom.guestName.value = validation.cleaned;
+  updateActionState();
+
+  // Cierra el teclado antes de avanzar a la siguiente tarjeta.
+  dom.guestName.blur();
+  scrollToWorkflowSection(dom.photoPickerCard, 320);
+}
 
 function handleNameInput() {
   if (state.isUploading || hasUnregisteredCompletedPhotos()) {
@@ -497,6 +554,8 @@ function addSelectedFiles(files) {
         : `${accepted.length} fotografías agregadas a la selección.`,
       "success"
     );
+
+    scrollToWorkflowSection(dom.previewSection, 220);
   }
 
   if (rejected.length > 0) {
@@ -992,12 +1051,7 @@ function prepareProgressUI() {
 
   state.selectedPhotos.forEach(updatePhotoProgressUI);
 
-  window.setTimeout(() => {
-    dom.progressSection.scrollIntoView({
-      behavior: prefersReducedMotion() ? "auto" : "smooth",
-      block: "start"
-    });
-  }, 80);
+  scrollToWorkflowSection(dom.progressSection, 100);
 }
 
 function updatePhotoProgressUI(photo) {
