@@ -2350,7 +2350,14 @@ textarea::selection {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-}/* Ocultar el detalle individual de cada fotografía durante la carga */
+}/* Espacio visual al avanzar automáticamente entre tarjetas */
+.photo-picker-card,
+.preview-card,
+.progress-card {
+  scroll-margin-top: 12px;
+}
+
+/* Ocultar el detalle individual de cada fotografía durante la carga */
 #fileProgressList {
   display: none !important;
 }
