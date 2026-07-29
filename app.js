@@ -30,7 +30,8 @@ const EVENT_CONFIG = {
   fecha: "1 de agosto de 2026",
   imagenPortada: "./assets/portada-evento.jpg?v=2",
   maxFotosPorEnvio: 20,
-  maxPesoPorFotoMB: 10
+  maxPesoOriginalMB: 40,
+  maxPesoProcesadoMB: 10
 };
 
 const MAX_PARALLEL_UPLOADS = 2;
@@ -161,7 +162,8 @@ function applyEventConfiguration() {
   dom.eventCover.src = EVENT_CONFIG.imagenPortada;
   dom.eventCover.alt = `Portada de ${EVENT_CONFIG.titulo}`;
   dom.selectionLimitBadge.textContent = `0 / ${EVENT_CONFIG.maxFotosPorEnvio}`;
-  dom.pickerHint.textContent = `Puedes seleccionar hasta ${EVENT_CONFIG.maxFotosPorEnvio} fotografías de ${EVENT_CONFIG.maxPesoPorFotoMB} MB cada una.`;
+  dom.pickerHint.textContent =
+  `Puedes seleccionar hasta ${EVENT_CONFIG.maxFotosPorEnvio} fotografías. Las imágenes grandes se optimizan automáticamente.`;
 }
 
 function bindEvents() {
@@ -564,7 +566,7 @@ function addSelectedFiles(files) {
 }
 
 function validateImageFile(file, existingKeys) {
-  const maxBytes = megabytesToBytes(EVENT_CONFIG.maxPesoPorFotoMB);
+  const maxBytes = megabytesToBytes(EVENT_CONFIG.maxPesoOriginalMB);
   const extension = getFileExtension(file.name);
   const knownImageExtensions = new Set([
     "jpg", "jpeg", "png", "webp", "gif", "bmp", "heic", "heif", "avif", "tif", "tiff"
@@ -581,11 +583,11 @@ function validateImageFile(file, existingKeys) {
   }
 
   if (file.size > maxBytes) {
-    return {
-      isValid: false,
-      message: `Supera el límite de ${EVENT_CONFIG.maxPesoPorFotoMB} MB antes de procesarla.`
-    };
-  }
+  return {
+    isValid: false,
+    message: `La fotografía pesa más de ${EVENT_CONFIG.maxPesoOriginalMB} MB y es demasiado grande para procesarla en este dispositivo.`
+  };
+}
 
   const duplicateKey = createDuplicateKey(file);
   if (existingKeys.has(duplicateKey)) {
@@ -894,12 +896,12 @@ async function processAndUploadPhoto(photo, guestName) {
     photo.processedBlob = prepared.blob;
     photo.uploadTotalBytes = prepared.blob.size;
 
-    if (prepared.blob.size > megabytesToBytes(EVENT_CONFIG.maxPesoPorFotoMB)) {
-      throw createAppError(
-        "file/too-large-after-processing",
-        `La fotografía sigue superando ${EVENT_CONFIG.maxPesoPorFotoMB} MB después de prepararla.`
-      );
-    }
+    if (prepared.blob.size > megabytesToBytes(EVENT_CONFIG.maxPesoProcesadoMB)) {
+  throw createAppError(
+    "file/too-large-after-processing",
+    `La fotografía sigue superando ${EVENT_CONFIG.maxPesoProcesadoMB} MB después de optimizarla.`
+  );
+}
 
     const uniqueFileName = createUniqueFileName(photo.file.name, prepared.extension);
     photo.uploadFileName = uniqueFileName;
