@@ -340,39 +340,86 @@ textarea::selection {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
+  justify-content: center;
   gap: 9px;
-  min-height: 42px;
-  padding: 9px 14px;
-  color: #4e4b59;
-  font-size: 12px;
-  font-weight: 680;
+  min-height: 46px;
+  padding: 10px 17px;
+  color: #69636f;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: -0.015em;
   white-space: nowrap;
-  background: rgba(255, 255, 255, 0.67);
-  border: 1px solid rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.97);
   border-radius: 999px;
   box-shadow:
-    0 10px 26px rgba(52, 37, 74, 0.075),
-    inset 0 1px rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
+    0 12px 30px rgba(52, 37, 74, 0.085),
+    inset 0 1px rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
+/*
+ * El mismo span .status-dot se transforma visualmente en un escudo,
+ * por lo que no es necesario modificar el HTML.
+ */
 .status-dot {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 23px;
+  height: 25px;
+  background: #a39ca8;
+  border-radius: 0;
+  box-shadow: none;
+  clip-path: polygon(
+    50% 0%,
+    90% 17%,
+    90% 51%,
+    82% 70%,
+    68% 85%,
+    50% 96%,
+    32% 85%,
+    18% 70%,
+    10% 51%,
+    10% 17%
+  );
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.status-dot::after {
+  position: absolute;
+  top: 7px;
+  left: 7px;
   width: 8px;
-  height: 8px;
-  background: #b7adbe;
-  border-radius: 50%;
-  box-shadow: 0 0 0 5px rgba(145, 140, 152, 0.11);
+  height: 4px;
+  content: "";
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transform: rotate(45deg);
+}
+
+.auth-badge.is-ready {
+  color: #168b5e;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .auth-badge.is-ready .status-dot {
-  background: var(--success);
-  box-shadow: 0 0 0 5px rgba(35, 153, 103, 0.12);
+  background: #22a06b;
+}
+
+.auth-badge.is-error {
+  color: #a83f4a;
 }
 
 .auth-badge.is-error .status-dot {
   background: var(--danger);
-  box-shadow: 0 0 0 5px rgba(182, 69, 80, 0.11);
 }
 
 .app-main {
@@ -1972,11 +2019,23 @@ textarea::selection {
   }
 
   .auth-badge {
-    max-width: 128px;
-    min-height: 38px;
+    max-width: 138px;
+    min-height: 40px;
     gap: 7px;
-    padding: 8px 11px;
+    padding: 8px 12px;
     font-size: 11px;
+  }
+
+  .status-dot {
+    width: 20px;
+    height: 22px;
+  }
+
+  .status-dot::after {
+    top: 6px;
+    left: 6px;
+    width: 7px;
+    height: 4px;
   }
 
   #authBadgeText {
